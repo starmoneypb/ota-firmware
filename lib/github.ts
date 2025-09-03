@@ -19,15 +19,11 @@ type GhContentItem = {
 };
 
 async function ghFetch(input: string, init: RequestInit, token: string) {
-  // Add cache-busting headers to prevent browser caching
   const res = await fetch(input, {
     ...init,
     headers: {
       'Accept': 'application/vnd.github+json',
       'X-GitHub-Api-Version': '2022-11-28',
-      'Cache-Control': 'no-cache, no-store, must-revalidate',
-      'Pragma': 'no-cache',
-      'Expires': '0',
       ...(init.headers || {}),
       ...(token ? { 'Authorization': `Bearer ${token}` } : {})
     }
@@ -40,8 +36,7 @@ async function ghFetch(input: string, init: RequestInit, token: string) {
 }
 
 export async function listFirmwares(s: GhSettings): Promise<GhContentItem[]> {
-  const timestamp = Date.now();
-  const url = `${GH_API}/repos/${s.owner}/${s.repo}/contents/${encodeURIComponent(s.otaDir)}?ref=${encodeURIComponent(s.branch)}&_t=${timestamp}`;
+  const url = `${GH_API}/repos/${s.owner}/${s.repo}/contents/${encodeURIComponent(s.otaDir)}?ref=${encodeURIComponent(s.branch)}`;
   const data = await ghFetch(url, { method: 'GET' }, s.token);
   if (!Array.isArray(data)) return [];
   return data.filter((x: GhContentItem) => x.type === 'file' && x.name.endsWith('.bin'));

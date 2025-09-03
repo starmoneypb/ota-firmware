@@ -78,8 +78,6 @@ export default function FirmwareManager({
   async function refresh() {
     try {
       setLoadingList(true);
-      // Clear the list immediately to show loading state
-      setList([]);
       const items = await listFirmwares(settings);
       const rows: Row[] = items.map((x) => ({
         name: x.name,
@@ -117,8 +115,6 @@ export default function FirmwareManager({
           : `feat(ota): add ${filename}`,
         existing?.sha
       );
-      // Small delay to ensure GitHub has processed the change
-      await new Promise(resolve => setTimeout(resolve, 1000));
       await refresh();
       alert("Saved successfully.");
     } catch (e) {
@@ -137,8 +133,6 @@ export default function FirmwareManager({
         row.sha,
         `chore(ota): delete ${row.name}`
       );
-      // Small delay to ensure GitHub has processed the change
-      await new Promise(resolve => setTimeout(resolve, 1000));
       await refresh();
     } catch (e) {
       toastError(e);
