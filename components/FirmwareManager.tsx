@@ -26,7 +26,7 @@ type Row = {
 
 const DEFAULTS: GhSettings = {
   owner: "starmoneypb",
-  repo: "starmoneypb.github.io",
+  repo: "ota-firmware",
   branch: "gh-pages",
   baseUrl: "https://starmoneypb.github.io/ota-firmware",
   otaDir: "ota-firmware",
