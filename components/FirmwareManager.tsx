@@ -28,7 +28,7 @@ const DEFAULTS: GhSettings = {
   owner: "starmoneypb",
   repo: "starmoneypb.github.io",
   branch: "gh-pages",
-  baseUrl: "https://starmoneypb.github.io/ota-firmware",
+  baseUrl: "https://starmoneypb.github.io",
   otaDir: "ota-firmware",
   token: "",
 };
